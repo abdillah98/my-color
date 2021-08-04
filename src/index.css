@@ -1,13 +1,104 @@
 body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color:  #fff;
+  color: #666;
+  line-height: 1.7;
+  font-size: 16px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1, h2, h3, h4, h5, h6, strong {
+  color: #333;
+  line-height: 1.2;
+}
+
+.container {
+  max-width: 1000px;
+  padding: 15px;
+  margin: auto;
+}
+
+label,
+.label-bold {
+  margin-right: 15px;
+}
+.label-bold {
+  font-weight: bold;
+  color: #333;
+  margin-right: 15px;
+}
+input[type=text] {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.2;
+  margin-right: 15px;
+  padding: 8px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+input[type=text]:focus {
+  outline: none;
+  border: 1px solid blue;
+}
+button {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.2;
+  background-color: #eee;
+  border:1px solid #eee;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+button:hover, button:focus {
+  background-color: #ddd;
+  border-color: #ddd;
+}
+
+.form-add {
+  padding: 15px 0;
+}
+.form-filter {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 15px 0;
+}
+
+.color-list {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 15px 0;
+}
+.color-item {
+  flex: 0 0 calc(20% - 15px);
+  width: calc(20% - 15px);
+  padding-right: 15px;
+}
+.color-box {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  overflow: hidden;
+  background-color: #eee;
+}
+.color-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7.5px 0;
+}
+.color-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  width: 28px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.color-close:hover,
+.color-close:focus {
+  background-color: #eee;
 }
