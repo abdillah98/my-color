@@ -1,9 +1,11 @@
-import ColorItem from './components/ColorItem'
-import { FC, useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { IColor } from './interface';
 import { hexToRGB, hexToHSL, getRed, getGreen,  getBlue } from './convert';
+import ColorItem from './components/ColorItem'
+import FilterForm from './components/FilterForm';
+import AddForm from './components/AddForm';
 
-const App: FC = () => {
+const App = () => {
     const data = [
         { 
             id: 1, 
@@ -45,32 +47,30 @@ const App: FC = () => {
     const [myColor, setMyColor] = useState<IColor[]>(data);
     const [color, setColor] = useState<string>('')
 
-    const handleFilterRed = (event: ChangeEvent<HTMLInputElement>): void => {
+    const handleFilter = (event: ChangeEvent<HTMLInputElement>):void => {
         if(event.target.checked) {
-            setMyColor(myColor.filter((color) => getRed(color.rgb) > 127))
+            if (event.target.value === 'red') {
+                setMyColor(myColor.filter((color) => getRed(color.rgb) > 127))
+            }
+            if (event.target.value === 'green') {
+                setMyColor(myColor.filter((color) => getGreen(color.rgb) > 127))
+            }
+            if (event.target.value === 'blue') {
+                setMyColor(myColor.filter((color) => getBlue(color.rgb) > 127))
+            }
         }
-    }
-
-    const handleFilterGreen = (event: ChangeEvent<HTMLInputElement>): void => {
-        if(event.target.checked) {
-            setMyColor(myColor.filter((color) => getGreen(color.rgb) > 127))
-        }
-    }
-
-    const handleFilterBlue = (event: ChangeEvent<HTMLInputElement>): void => {
-        if(event.target.checked) {
-            setMyColor(myColor.filter((color) => getBlue(color.rgb) > 127))
+        else {
+            setMyColor(data)
         }
     }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-      if (event.target.name === "color") {
-        setColor(event.target.value);
-      } 
+        const {name, value} = event.target
+        if(name === 'color') setColor(value)
     };
 
-    const addColor = (e: React.FormEvent): void => {
-        e.preventDefault()
+    const addColor = (event: React.FormEvent): void => {
+        event.preventDefault()
         const newColor = { 
             id: myColor.length + 1, 
             hex: color,
@@ -89,46 +89,8 @@ const App: FC = () => {
     return (
       
       <div className="container">
-        <form className="form-add" onSubmit={(e) => addColor(e)}>
-          <label htmlFor="color" className="label-bold">Add new color: </label>
-          <input 
-            type="text" 
-            id="color" 
-            name="color" 
-            placeholder="#00..." 
-            value={color}
-            onChange={handleChange}
-          />
-          <button type="submit">+ Add</button>
-        </form>
-        
-        <div className="form-filter">
-            <span>
-                <label htmlFor="red">
-                    <input type="checkbox" id="red" name="red" onChange={handleFilterRed} />
-                    <span> Red &gt; 50%</span>
-                </label>
-            </span>
-            <span>
-                <label htmlFor="green">
-                    <input type="checkbox" id="green" name="green" onChange={handleFilterGreen}/>
-                    <span> Green &gt; 50%</span>
-                </label>
-            </span>
-            <span>
-                <label htmlFor="blue">
-                    <input type="checkbox" id="blue" name="blue" onChange={handleFilterBlue} />
-                    <span> Blue &gt; 50%</span>
-                </label>
-            </span>
-            <span>
-                <label htmlFor="saturation">
-                    <input type="checkbox" id="saturation" name="saturation" />
-                    <span> Saturation &gt; 50%</span>
-                </label>
-            </span>
-        </div>
-        
+        <AddForm color={color} handleChange={handleChange} addColor={addColor}/>
+        <FilterForm handleFilter={handleFilter}/>
         <div className="color-list">
             {myColor.map((color: IColor, key: number) => {
                 return <ColorItem key={key} color={color} deleteColor={deleteColor}/>
