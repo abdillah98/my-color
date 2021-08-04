@@ -3,7 +3,7 @@ import { IColor } from '../interface'
 interface Props {
     color: IColor;
     deleteColor(id: number): void;
-  }
+}
   
 const ColorItem = ({ color, deleteColor, }: Props) => {
     return (

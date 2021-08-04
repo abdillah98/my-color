@@ -5,7 +5,6 @@ interface Props {
 }
 
 const FilterForm = ({handleFilter}:Props) => {
-
     return (
         <div className="form-filter">
             <span>
