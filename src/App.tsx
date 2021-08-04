@@ -1,10 +1,7 @@
-// import React from 'react';
-// import AddForm from './components/AddForm';
-import FilterForm from './components/FilterForm';
 import ColorItem from './components/ColorItem'
 import { FC, useState, ChangeEvent } from 'react';
 import { IColor } from './interface';
-import { hexToRGB, hexToHSL } from './convert';
+import { hexToRGB, hexToHSL, getRed, getGreen,  getBlue } from './convert';
 
 const App: FC = () => {
     const data = [
@@ -48,6 +45,24 @@ const App: FC = () => {
     const [myColor, setMyColor] = useState<IColor[]>(data);
     const [color, setColor] = useState<string>('')
 
+    const handleFilterRed = (event: ChangeEvent<HTMLInputElement>): void => {
+        if(event.target.checked) {
+            setMyColor(myColor.filter((color) => getRed(color.rgb) > 127))
+        }
+    }
+
+    const handleFilterGreen = (event: ChangeEvent<HTMLInputElement>): void => {
+        if(event.target.checked) {
+            setMyColor(myColor.filter((color) => getGreen(color.rgb) > 127))
+        }
+    }
+
+    const handleFilterBlue = (event: ChangeEvent<HTMLInputElement>): void => {
+        if(event.target.checked) {
+            setMyColor(myColor.filter((color) => getBlue(color.rgb) > 127))
+        }
+    }
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
       if (event.target.name === "color") {
         setColor(event.target.value);
@@ -86,7 +101,34 @@ const App: FC = () => {
           />
           <button type="submit">+ Add</button>
         </form>
-        <FilterForm />
+        
+        <div className="form-filter">
+            <span>
+                <label htmlFor="red">
+                    <input type="checkbox" id="red" name="red" onChange={handleFilterRed} />
+                    <span> Red &gt; 50%</span>
+                </label>
+            </span>
+            <span>
+                <label htmlFor="green">
+                    <input type="checkbox" id="green" name="green" onChange={handleFilterGreen}/>
+                    <span> Green &gt; 50%</span>
+                </label>
+            </span>
+            <span>
+                <label htmlFor="blue">
+                    <input type="checkbox" id="blue" name="blue" onChange={handleFilterBlue} />
+                    <span> Blue &gt; 50%</span>
+                </label>
+            </span>
+            <span>
+                <label htmlFor="saturation">
+                    <input type="checkbox" id="saturation" name="saturation" />
+                    <span> Saturation &gt; 50%</span>
+                </label>
+            </span>
+        </div>
+        
         <div className="color-list">
             {myColor.map((color: IColor, key: number) => {
                 return <ColorItem key={key} color={color} deleteColor={deleteColor}/>

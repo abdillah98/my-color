@@ -1,3 +1,27 @@
+export const getRed = (r:any):number => {
+  let t:any = r.substring(4, r.length-1)
+    .replace(/ /g, '')
+    .split(',')[0]
+  
+   return t
+}
+
+export const getGreen = (r:any):number => {
+  let t:any = r.substring(4, r.length-1)
+    .replace(/ /g, '')
+    .split(',')[1]
+  
+   return t
+}
+
+export const getBlue = (r:any):number => {
+  let t:any = r.substring(4, r.length-1)
+    .replace(/ /g, '')
+    .split(',')[2]
+  
+   return t
+}
+
 export const hexToRGB = (h:string):string => {
     let r:string = '0' 
     let g:string = '0' 
